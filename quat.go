@@ -11,10 +11,8 @@ type Quaternion struct {
 	W float32
 }
 
-func NewQuaternionFromMatrix3x3(f Matrix3x3) Quaternion {
+func NewQuaternionFromMatrix3x3(m Matrix3x3) Quaternion {
 	var q Quaternion
-
-	m := f
 
 	m00, m01, m02 := m.c0.X, m.c0.Y, m.c0.Z
 	m10, m11, m12 := m.c1.X, m.c1.Y, m.c1.Z
@@ -68,6 +66,11 @@ func NewQuaternionFromMatrix3x3(f Matrix3x3) Quaternion {
 
 func (q Quaternion) Set(w, x, y, z float32) Quaternion {
 	return Quaternion{x, y, z, w}
+}
+
+func (q Quaternion) MulV3(v Vector3) Vector3 {
+	t := CrossV3(q.XYZ(), v).Mul(2)
+	return v.Add(t.Mul(q.W)).Add(CrossV3(q.XYZ(), t))
 }
 
 func (q Quaternion) Conjugate() Quaternion {
