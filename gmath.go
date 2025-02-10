@@ -8,6 +8,7 @@ import (
 const (
 	ToRadians    = 0.017453292519943296
 	FltMinNormal = 1.175494351e-38
+	Epsilon      = 1.1920928955078125e-7
 )
 
 func IsFinite(v float64) bool {
