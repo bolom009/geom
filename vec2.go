@@ -29,8 +29,8 @@ func (v Vector2) Mul(s float32) Vector2 {
 	return Vector2{X: v.X * s, Y: v.Y * s}
 }
 
-func (v Vector2) Dist(w Vector2) float32 {
-	return v.Sub(w).Len()
+func (v Vector2) MulV(v2 Vector2) Vector2 {
+	return Vector2{X: v.X * v2.X, Y: v.Y * v2.Y}
 }
 
 func (v Vector2) Magnitude() float32 {
@@ -42,7 +42,7 @@ func (v Vector2) Perpendicular() Vector2 {
 }
 
 func (v Vector2) Len() float32 {
-	return float32(math.Sqrt(float64(v.SqLen())))
+	return float32(math.Sqrt(float64(v.Dot(v))))
 }
 
 func (v Vector2) Unit() Vector2 {
@@ -64,24 +64,8 @@ func (v Vector2) NormEuclidean() float32 {
 	return float32(math.Hypot(float64(v.X), float64(v.Y)))
 }
 
-func (v Vector2) NearEq(b Vector2) bool {
-	return nearEq(v.X, b.X, epsilon) && nearEq(v.Y, b.Y, epsilon)
-}
-
-func (v Vector2) SqDist(b Vector2) float32 {
-	return v.Sub(b).SqLen()
-}
-
-func (v Vector2) SqLen() float32 {
-	return v.Dot(v)
-}
-
 func (v Vector2) Dot(b Vector2) float32 {
 	return v.X*b.X + v.Y*b.Y
-}
-
-func (v Vector2) CrossLen(b Vector2) float32 {
-	return v.X*b.Y - v.Y*b.X
 }
 
 func (v Vector2) Lerp(b Vector2, t float32) Vector2 {
@@ -90,8 +74,4 @@ func (v Vector2) Lerp(b Vector2, t float32) Vector2 {
 
 func Distance(a, b Vector2) float32 {
 	return float32(math.Sqrt(math.Pow(float64(b.X-a.X), 2) + math.Pow(float64(b.Y-a.Y), 2)))
-}
-
-func nearEq(a, b, d float32) bool {
-	return float32(math.Abs(float64(a-b))) <= d
 }
