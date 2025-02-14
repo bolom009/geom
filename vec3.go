@@ -62,6 +62,14 @@ func (v Vector3) Distance(y Vector3) float32 {
 	return float32(math.Sqrt(float64(dx*dx + dy*dy + dz*dz)))
 }
 
+func (v Vector3) Unit() Vector3 {
+	if v.X == 0 && v.Y == 0 && v.Z == 0 {
+		return Vector3{1, 0, 0}
+	}
+
+	return v.Mul(1.0 / v.Len())
+}
+
 func (v Vector3) Lerp(b Vector3, t float32) Vector3 {
 	return Vector3{X: v.X + (b.X-v.X)*t, Y: v.Y + (b.Y-v.Y)*t, Z: v.Z + (b.Z-v.Z)*t}
 }
