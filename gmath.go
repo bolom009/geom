@@ -75,3 +75,17 @@ func SelectV3(falseValue, trueValue Vector3, test bool) Vector3 {
 func Clamp(valueToClamp, lowerBound, upperBound float32) float32 {
 	return float32(math.Max(float64(lowerBound), math.Min(float64(upperBound), float64(valueToClamp))))
 }
+
+func Min(x, y float32) float32 {
+	if x < y {
+		return x
+	}
+	return y
+}
+
+func Max(x, y float32) float32 {
+	if x > y {
+		return x
+	}
+	return y
+}
