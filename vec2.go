@@ -73,5 +73,8 @@ func (v Vector2) Lerp(b Vector2, t float32) Vector2 {
 }
 
 func Distance(a, b Vector2) float32 {
-	return float32(math.Sqrt(math.Pow(float64(b.X-a.X), 2) + math.Pow(float64(b.Y-a.Y), 2)))
+	sX := b.X - a.X
+	sY := b.Y - a.Y
+
+	return float32(math.Sqrt(float64(sX*sX + sY*sY)))
 }
