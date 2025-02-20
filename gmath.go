@@ -28,10 +28,19 @@ func DotV3(a, b Vector3) float32 {
 }
 
 func CrossV3(x, y Vector3) Vector3 {
-	v0 := x.MulV(y.YZX())
-	v1 := x.YZX().MulV(y)
+	v0X := x.X * y.Y
+	v0Y := x.Y * y.Z
+	v0Z := x.Z * y.X
 
-	return v0.Sub(v1).YZX()
+	v1X := x.Y * y.X
+	v1Y := x.Z * y.Y
+	v1Z := x.X * y.Z
+
+	return Vector3{X: v0Y - v1Y, Y: v0Z - v1Z, Z: v0X - v1X}
+
+	//v0 := x.MulV(y.YZX())
+	//v1 := x.YZX().MulV(y)
+	//return v0.Sub(v1).YZX()
 }
 
 func Rsqrt(x float32) float32 {
@@ -73,7 +82,7 @@ func SelectV3(falseValue, trueValue Vector3, test bool) Vector3 {
 }
 
 func Clamp(valueToClamp, lowerBound, upperBound float32) float32 {
-	return float32(math.Max(float64(lowerBound), math.Min(float64(upperBound), float64(valueToClamp))))
+	return Max(lowerBound, Min(upperBound, valueToClamp))
 }
 
 func Min(x, y float32) float32 {
